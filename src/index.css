@@ -1,3 +1,47 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    h1 {
+      @apply text-4xl text-dark-gray font-bold
+    }
+
+    p {
+        @apply text-base text-black font-normal
+    }
+
+    h3 {
+        @apply text-lg text-black font-bold
+    }
+}
+
+@layer components {
+
+    .button {
+        @apply flex w-full h-12	justify-center rounded-3xl items-center bg-gradient-to-r from-gradient-pink to-light-orange-labeddit hover:from-pink-500 hover:to-yellow-500 shadow-sm text-lg font-bold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dark-orange-labeddit
+    }
+
+    .button-outline {
+        @apply flex w-full h-12	justify-center rounded-3xl items-center border-[1.5px] border-dark-orange-labeddit bg-white shadow-sm hover:bg-gradient-to-r hover:from-gradient-pink hover:to-light-orange-labeddit text-lg font-bold text-dark-orange-labeddit hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-orange-labeddit
+    }
+
+    .hr {
+        @apply w-full h-[1.5px] bg-gradient-to-r from-gradient-pink to-light-orange-labeddit
+    }
+
+    .input {
+        @apply w-full h-14 rounded-md border-0 text-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-light-blue-gray
+    }
+
+    .form {
+        @apply w-full sm:w-[363px] relative flex items-center flex-col gap-2 sm:gap-4
+    }
+
+    .card {
+        font-size: theme('fontSize.lg');
+        font-weight: theme('fontWeight.normal');
+        color: theme('colors.black');
+        line-height: theme('lineHeight.6');
+    }
+  }
