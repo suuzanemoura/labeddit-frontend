@@ -6,7 +6,7 @@ export function Toast() {
     <ToastContainer
       className={"pl-10 top-10 right-0 sm:pl-0"}
       position="top-right"
-      autoClose={1000}
+      autoClose={5000}
       hideProgressBar={false}
       newestOnTop={false}
       closeOnClick

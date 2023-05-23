@@ -13,9 +13,12 @@ export default {
         "dark-blue-gray": "#45525B",
         "light-blue-gray": "#A8BBC6",
         "gradient-pink": "#FF6489",
+        "lighter-gray": "#EDEDED",
+        "light-gray": "#C4C4C4",
+        "blue-button": "#4088CB",
       },
       fontFamily: {
-        sans: ["IBM Plex Sans", ...defaultTheme.fontFamily.sans],
+        sans: ["IBM Plex Sans", "Noto Sans", ...defaultTheme.fontFamily.sans],
       },
     },
   },
