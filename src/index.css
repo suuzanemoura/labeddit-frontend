@@ -31,7 +31,7 @@
     }
 
     .hr {
-        @apply w-full h-[1.5px] bg-gradient-to-r from-gradient-pink to-light-orange-labeddit
+        @apply w-full sm:w-[364px] h-[1.5px] bg-gradient-to-r from-gradient-pink to-light-orange-labeddit
     }
 
     .input {
@@ -42,10 +42,19 @@
         @apply w-full sm:w-[363px] relative flex items-center flex-col gap-2 sm:gap-4
     }
 
+    .textarea{
+        @apply w-full sm:w-[550px] h-36 bg-lighter-gray rounded-xl border-0 resize-none p-4 focus:ring-1 focus:ring-inset focus:ring-light-blue-gray shadow-sm placeholder:text-lg placeholder:text-dark-gray
+    }
+
     .card {
-        font-size: theme('fontSize.lg');
-        font-weight: theme('fontWeight.normal');
-        color: theme('colors.black');
-        line-height: theme('lineHeight.6');
+        @apply w-[85vw] sm:w-[550px] bg-white-gray rounded-xl text-lg font-normal leading-6 p-4 border border-dark-white-gray break-words text-ellipsis flex flex-col gap-5
+    }
+
+    .sendby {
+        @apply text-xs text-dark-gray
+    }
+
+    .infos{
+        @apply flex rounded-2xl border border-dark-white-gray w-28 h-8 items-center justify-between py-2 px-3
     }
   }

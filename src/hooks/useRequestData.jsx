@@ -1,11 +1,11 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { BASE_URL } from "../constants/contants";
 
 export const useRequestData = () => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const requestData = async (path, method, body, headers, params) => {
+  const requestData = async (path, method, body, headers) => {
     try {
       setIsLoading(true);
       const data = await axios.request({
@@ -13,10 +13,9 @@ export const useRequestData = () => {
         method: method,
         data: body,
         headers: headers,
-        params: params,
       });
       setIsLoading(false);
-      return data;
+      return data
     } catch (error) {
       setIsLoading(false);
       return error.response;

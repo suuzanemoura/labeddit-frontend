@@ -15,6 +15,9 @@ export default {
         "gradient-pink": "#FF6489",
         "lighter-gray": "#EDEDED",
         "light-gray": "#C4C4C4",
+        "white-gray": "#FBFBFB",
+        "dark-white-gray": "##E0E0E0",
+        "dark-gray": "#6F6F6F",
         "blue-button": "#4088CB",
       },
       fontFamily: {
