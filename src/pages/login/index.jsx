@@ -44,13 +44,11 @@ export default function LoginPage() {
       "POST",
       form,
       undefined,
-      undefined,
     );
 
     response.data.token
       ? (clearInputs(),
         cookies.set("labedditUserToken", response.data.token, { path: "/" }),
-        console.log(response.data.token),
         goToPosts(navigate))
       : errorToast(getMessageErrorToastLogin(response.data));
   };

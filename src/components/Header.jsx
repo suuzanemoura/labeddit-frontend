@@ -2,12 +2,13 @@ import { useLocation, useNavigate, useParams } from "react-router";
 import labeddit_icon from "../assets/labeddit_icon.svg";
 import close_icon from "../assets/close_icon.svg";
 import { goToLogin } from "../routes/coordinator";
+import Cookies from "universal-cookie";
 
 export const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const params = useParams();
-
+  const cookies = new Cookies();
 
   const renderHeader = () => {
   switch (location.pathname) {
@@ -47,7 +48,7 @@ export const Header = () => {
             <button
               className="button-header"
               type="button"
-              onClick={() => goToLogin(navigate)}
+              onClick={() => {goToLogin(navigate), cookies.set("labedditUserToken", "", { path: "/"})}}
             >
               Sair
             </button>
@@ -82,7 +83,7 @@ export const Header = () => {
             <button
               className="button-header"
               type="button"
-              onClick={() => goToLogin(navigate)}
+              onClick={() => {goToLogin(navigate), cookies.set("labedditUserToken", "", { path: "/"})}}
             >
               Sair
             </button>

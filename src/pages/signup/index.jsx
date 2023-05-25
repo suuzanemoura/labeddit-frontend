@@ -18,13 +18,13 @@ export default function SignupPage() {
 
   const cookies = new Cookies();
 
-  // useEffect(() => {
-  //   const token = cookies.get("labedditUserToken");
+  useEffect(() => {
+    const token = cookies.get("labedditUserToken");
 
-  //   if (token) {
-  //     goToPosts(navigate);
-  //   }
-  // }, []);
+    if (token) {
+      goToPosts(navigate);
+    }
+  }, []);
 
   const [form, onChangeInputs, clearInputs] = useForm({
     username: "",
@@ -44,7 +44,6 @@ export default function SignupPage() {
       "users/signup",
       "POST",
       form,
-      undefined,
       undefined,
     );
 
