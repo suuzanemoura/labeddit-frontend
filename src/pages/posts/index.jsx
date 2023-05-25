@@ -1,5 +1,5 @@
 import Cookies from "universal-cookie";
-import { Card } from "../../components/Card";
+import { CardPost } from "../../components/CardPost";
 import { Header } from "../../components/Header";
 import { Textarea } from "../../components/Textarea";
 import { useProtectedPage } from "../../hooks/useProtectedPage";
@@ -14,18 +14,12 @@ export default function Posts() {
   const headers = { Authorization: token };
 
   const { requestData } = useRequestData();
-  const [ posts, setPosts ] = useState([]);
-  const [ newPost, setNewPost ] = useState([])
-  const [ newLikeOrDislikePost, setNewLikeOrDislikePost ] = useState([])
+  const [posts, setPosts] = useState([]);
+  const [newPost, setNewPost] = useState([]);
+  const [newLikeOrDislikePost, setNewLikeOrDislikePost] = useState(null);
 
   const fetchPosts = async () => {
-    const response = await requestData(
-      "posts",
-      "GET",
-      undefined,
-      headers,
-      undefined,
-    );
+    const response = await requestData("posts", "GET", undefined, headers);
     setPosts(response.data);
   };
 
@@ -47,14 +41,25 @@ export default function Posts() {
 
         <hr className="hr h-0.5" />
 
-        <div className="flex flex-col items-center gap-4 pt-4">
-          {
-            !posts.length ? <img src={loading_orange} alt="Carregando sua requisição" className="inline w-6 h-6 mr-3 animate-spin" /> :
+        <div className="flex flex-col items-center gap-2 pt-4">
+          {!posts.length ? (
+            <img
+              src={loading_orange}
+              alt="Carregando sua requisição"
+              className="inline w-6 h-6 mr-3 animate-spin"
+            />
+          ) : (
             posts.map((post) => {
               return (
-                <Card key={post.id} post={post} headers={headers} setNewLikeOrDislikePost={setNewLikeOrDislikePost} />
-              )})
-          }
+                <CardPost
+                  key={post.id}
+                  post={post}
+                  headers={headers}
+                  setNewLikeOrDislikePost={setNewLikeOrDislikePost}
+                />
+              );
+            })
+          )}
         </div>
       </main>
     </>

@@ -15,7 +15,7 @@ export const useRequestData = () => {
         headers: headers,
       });
       setIsLoading(false);
-      return data
+      return data;
     } catch (error) {
       setIsLoading(false);
       return error.response;

@@ -5,7 +5,7 @@ import { useRequestData } from "../hooks/useRequestData";
 import { useToast } from "../hooks/useToast";
 import { getMessageErrorToastLikeDislike } from "../utils/ReturnMessageToast";
 
-export function Card({ post, headers, setNewLikeOrDislikePost }) {
+export function CardPost({ post, headers, setNewLikeOrDislikePost }) {
   const navigate = useNavigate();
 
   const { requestData } = useRequestData();
