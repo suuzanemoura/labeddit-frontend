@@ -1,15 +1,12 @@
 import chat_balloon from "../assets/chat_balloon.svg";
 import { goToPostDetails } from "../routes/coordinator";
 import { useNavigate } from "react-router";
-import { useState } from "react";
 import { useRequestData } from "../hooks/useRequestData";
 import { useToast } from "../hooks/useToast";
 import { getMessageErrorToastLikeDislike } from "../utils/ReturnMessageToast";
 
 export function Card({ post, headers, setNewLikeOrDislikePost }) {
   const navigate = useNavigate();
-  const [like, setLike] = useState(false);
-  const [dislike, setDislike] = useState(false);
 
   const { requestData } = useRequestData();
   const { errorToast, Toast } = useToast();
