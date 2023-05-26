@@ -42,8 +42,8 @@ export default function LoginPage() {
     const response = await requestData(
       "users/login",
       "POST",
-      form,
       undefined,
+      form
     );
 
     response.data.token
