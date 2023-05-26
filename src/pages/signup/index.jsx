@@ -43,8 +43,8 @@ export default function SignupPage() {
     const response = await requestData(
       "users/signup",
       "POST",
-      form,
       undefined,
+      form,
     );
 
     response.data.token

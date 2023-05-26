@@ -5,14 +5,14 @@ import { BASE_URL } from "../constants/contants";
 export const useRequestData = () => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const requestData = async (path, method, body, headers) => {
+  const requestData = async (path, method, headers, body) => {
     try {
       setIsLoading(true);
       const data = await axios.request({
         url: BASE_URL + "/" + path,
         method: method,
-        data: body,
         headers: headers,
+        data: body,
       });
       setIsLoading(false);
       return data;

@@ -1,47 +1,52 @@
 import { Header } from "../../components/Header";
-import Cookies from "universal-cookie";
 import { useProtectedPage } from "../../hooks/useProtectedPage";
 import { useRequestData } from "../../hooks/useRequestData";
 import { useParams } from "react-router-dom";
 import { CardPost } from "../../components/CardPost";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Textarea } from "../../components/Textarea";
 import { CardComment } from "../../components/CardComment";
+import { PostsContext } from "../../contexts/PostsContext";
+import { UserContext } from "../../contexts/UserContext";
 
 export default function PostDetails() {
   useProtectedPage();
-  const cookies = new Cookies();
-  const token = cookies.get("labedditUserToken");
-  const headers = { Authorization: token };
+  const { headers, userId, likesDislikesPosts, likesDislikesComments, setLikesDislikesComments } = useContext(UserContext);
+  const { post, setPost, newComment, setNewComment, newLikeOrDislikePost, setNewLikeOrDislikePost, newLikeOrDislikeComment, setNewLikeOrDislikeComment } = useContext(PostsContext);
 
-  const { requestData } = useRequestData();
   const params = useParams();
-
-  const [post, setPost] = useState(null);
-  const [newComment, setNewComment] = useState([]);
-  const [newLikeOrDislikePost, setNewLikeOrDislikePost] = useState([]);
-  const [newLikeOrDislikeComment, setNewLikeOrDislikeComment] = useState([]);
+  const { requestData } = useRequestData();
 
   const fetchPostById = async () => {
     const response = await requestData(
-      `posts/${params.postId}`,
-      "GET",
-      undefined,
-      headers,
+    `posts/${params.postId}`,
+    "GET",
+    headers
     );
     setPost(response.data);
   };
 
+  const getLikesDislikesOnCommentsByPostId = async () => {
+    if (userId){
+        const response = await requestData(`users/${userId}/posts/${params.postId}/comments/likes`, "GET", headers)
+        setLikesDislikesComments(response.data)
+    }
+  }
+
   useEffect(() => {
-    fetchPostById();
+      fetchPostById();
   }, [newComment, newLikeOrDislikePost, newLikeOrDislikeComment]);
+
+  useEffect(() => {
+    getLikesDislikesOnCommentsByPostId()
+  }, [userId, newLikeOrDislikeComment, likesDislikesComments])
 
   return (
     <>
       <Header />
       <main className="flex flex-col min-h-full items-center p-8 gap-4">
         <div className="flex flex-col gap-1 w-full sm:w-[550px] items-center mb-2">
-          {post === null ? (
+          {post === undefined ? (
             <svg
               aria-hidden="true"
               role="status"
@@ -64,6 +69,7 @@ export default function PostDetails() {
               key={post.id}
               post={post}
               headers={headers}
+              likesDislikesPosts={likesDislikesPosts}
               setNewLikeOrDislikePost={setNewLikeOrDislikePost}
             />
           )}
@@ -78,15 +84,8 @@ export default function PostDetails() {
         </div>
         <hr className="hr h-0.5" />
 
-        {post === null ? (
-          <svg
-            aria-hidden="true"
-            role="status"
-            viewBox="0 0 100 101"
-            fill="#FE7E02"
-            className="inline w-6 h-6 mr-3 animate-spin"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+        {post === undefined ? (
+          <svg aria-hidden="true" role="status" viewBox="0 0 100 101" fill="#FE7E02" className="inline w-6 h-6 mr-3 animate-spin" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
               fill="#E5E7EB"
@@ -104,6 +103,7 @@ export default function PostDetails() {
                   key={comment.id}
                   comment={comment}
                   headers={headers}
+                  likesDislikesComments={likesDislikesComments}
                   setNewLikeOrDislikeComment={setNewLikeOrDislikeComment}
                 />
               );

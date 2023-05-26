@@ -1,31 +1,17 @@
-import Cookies from "universal-cookie";
 import { CardPost } from "../../components/CardPost";
 import { Header } from "../../components/Header";
 import { Textarea } from "../../components/Textarea";
 import { useProtectedPage } from "../../hooks/useProtectedPage";
-import { useRequestData } from "../../hooks/useRequestData";
-import { useEffect, useState } from "react";
 import loading_orange from "../../assets/loading_orange.svg";
+import { UserContext } from "../../contexts/UserContext";
+import { PostsContext } from "../../contexts/PostsContext";
+import { useContext } from "react";
 
 export default function Posts() {
   useProtectedPage();
-  const cookies = new Cookies();
-  const token = cookies.get("labedditUserToken");
-  const headers = { Authorization: token };
 
-  const { requestData } = useRequestData();
-  const [posts, setPosts] = useState([]);
-  const [newPost, setNewPost] = useState([]);
-  const [newLikeOrDislikePost, setNewLikeOrDislikePost] = useState(null);
-
-  const fetchPosts = async () => {
-    const response = await requestData("posts", "GET", undefined, headers);
-    setPosts(response.data);
-  };
-
-  useEffect(() => {
-    fetchPosts();
-  }, [newPost, newLikeOrDislikePost]);
+  const { headers, likesDislikesPosts } = useContext(UserContext);
+  const { posts, setNewPost, setNewLikeOrDislikePost } = useContext(PostsContext);
 
   return (
     <>
@@ -55,6 +41,7 @@ export default function Posts() {
                   key={post.id}
                   post={post}
                   headers={headers}
+                  likesDislikesPosts={likesDislikesPosts}
                   setNewLikeOrDislikePost={setNewLikeOrDislikePost}
                 />
               );
