@@ -2,7 +2,7 @@ import { useForm } from "../../hooks/useForm";
 import labeddit_logo from "../../assets/labeddit_logo.svg";
 import { AiOutlineEye } from "react-icons/ai";
 import { AiOutlineEyeInvisible } from "react-icons/ai";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { goToPosts, goToSignUp } from "../../routes/coordinator";
 import { useNavigate } from "react-router";
 import { useRequestData } from "../../hooks/useRequestData";
@@ -10,21 +10,15 @@ import { useToast } from "../../hooks/useToast";
 import Cookies from "universal-cookie";
 import loading from "../../assets/loading.svg";
 import { getMessageErrorToastLogin } from "../../utils/ReturnMessageToast";
+import { UserContext } from "../../contexts/UserContext";
 
 export default function LoginPage() {
+
+  const cookies = new Cookies();
   const navigate = useNavigate();
   const { isLoading, requestData } = useRequestData();
   const { errorToast, Toast } = useToast();
-
-  const cookies = new Cookies();
-
-  useEffect(() => {
-    const token = cookies.get("labedditUserToken");
-
-    if (token) {
-      goToPosts(navigate);
-    }
-  }, []);
+  const { token, setToken } = useContext(UserContext)
 
   const [form, onChangeInputs, clearInputs] = useForm({
     email: "",
@@ -36,7 +30,7 @@ export default function LoginPage() {
     SetShowPassword(type);
   };
 
-  const onSubmit = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     const response = await requestData(
@@ -49,9 +43,18 @@ export default function LoginPage() {
     response.data.token
       ? (clearInputs(),
         cookies.set("labedditUserToken", response.data.token, { path: "/" }),
+        setToken(response.data.token),
         goToPosts(navigate))
       : errorToast(getMessageErrorToastLogin(response.data));
   };
+
+  useEffect(() => {
+
+    if (token) {
+      goToPosts(navigate)
+    }
+
+  }, [navigate]);
 
   return (
     <>
@@ -70,7 +73,7 @@ export default function LoginPage() {
         <div className="flex items-center flex-col w-full">
           <form
             className="form"
-            onSubmit={onSubmit}
+            onSubmit={handleSubmit}
           >
             <input
               id="email"

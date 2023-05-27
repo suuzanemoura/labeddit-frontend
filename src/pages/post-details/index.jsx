@@ -1,9 +1,8 @@
 import { Header } from "../../components/Header";
 import { useProtectedPage } from "../../hooks/useProtectedPage";
-import { useRequestData } from "../../hooks/useRequestData";
 import { useParams } from "react-router-dom";
 import { CardPost } from "../../components/CardPost";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { Textarea } from "../../components/Textarea";
 import { CardComment } from "../../components/CardComment";
 import { PostsContext } from "../../contexts/PostsContext";
@@ -11,34 +10,17 @@ import { UserContext } from "../../contexts/UserContext";
 
 export default function PostDetails() {
   useProtectedPage();
-  const { headers, userId, likesDislikesPosts, likesDislikesComments, setLikesDislikesComments } = useContext(UserContext);
-  const { post, setPost, newComment, setNewComment, newLikeOrDislikePost, setNewLikeOrDislikePost, newLikeOrDislikeComment, setNewLikeOrDislikeComment } = useContext(PostsContext);
+  const { userId } = useContext(UserContext);
+  const { post, newComment, setNewComment, newLikeOrDislikePost, newLikeOrDislikeComment, likesDislikesComments, getLikesDislikesOnCommentsByPostId, fetchPostById } = useContext(PostsContext);
 
   const params = useParams();
-  const { requestData } = useRequestData();
-
-  const fetchPostById = async () => {
-    const response = await requestData(
-    `posts/${params.postId}`,
-    "GET",
-    headers
-    );
-    setPost(response.data);
-  };
-
-  const getLikesDislikesOnCommentsByPostId = async () => {
-    if (userId){
-        const response = await requestData(`users/${userId}/posts/${params.postId}/comments/likes`, "GET", headers)
-        setLikesDislikesComments(response.data)
-    }
-  }
 
   useEffect(() => {
-      fetchPostById();
-  }, [newComment, newLikeOrDislikePost, newLikeOrDislikeComment]);
+    fetchPostById(params.postId)
+  }, [newComment, newLikeOrDislikePost, newLikeOrDislikeComment, likesDislikesComments]);
 
   useEffect(() => {
-    getLikesDislikesOnCommentsByPostId()
+    getLikesDislikesOnCommentsByPostId(params.postId)
   }, [userId, newLikeOrDislikeComment, likesDislikesComments])
 
   return (
@@ -68,9 +50,6 @@ export default function PostDetails() {
             <CardPost
               key={post.id}
               post={post}
-              headers={headers}
-              likesDislikesPosts={likesDislikesPosts}
-              setNewLikeOrDislikePost={setNewLikeOrDislikePost}
             />
           )}
 
@@ -78,7 +57,6 @@ export default function PostDetails() {
             placeholder={"Adicionar comentário"}
             button={"Responder"}
             path={`posts/${params.postId}/comments`}
-            headers={headers}
             setNewContent={setNewComment}
           />
         </div>
@@ -97,14 +75,16 @@ export default function PostDetails() {
           </svg>
         ) : (
           <div className="flex flex-col items-center gap-2 pt-4">
-            {post.commentsPost.map((comment) => {
+            {post.commentsPost
+            .sort((a, b) => {
+              return new Date(b.createdAt) - new Date(a.createdAt);
+            }).map((comment) => {
               return (
                 <CardComment
                   key={comment.id}
                   comment={comment}
-                  headers={headers}
-                  likesDislikesComments={likesDislikesComments}
-                  setNewLikeOrDislikeComment={setNewLikeOrDislikeComment}
+                  params={params.postId}
+
                 />
               );
             })}

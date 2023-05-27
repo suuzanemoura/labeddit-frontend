@@ -5,19 +5,20 @@ import { useToast } from "../hooks/useToast";
 import { getMessageErrorToastLikeDislike } from "../utils/ReturnMessageToast";
 import { formatDistanceToNow } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR";
+import { useContext } from "react";
+import { PostsContext } from "../contexts/PostsContext";
+import { UserContext } from "../contexts/UserContext";
 
-export function CardPost({
-  post,
-  headers,
-  likesDislikesPosts,
-  setNewLikeOrDislikePost,
-}) {
+export function CardPost({ post }) {
   const navigate = useNavigate();
+  const { headers } = useContext(UserContext);
+  const { likesDislikesPosts, setNewLikeOrDislikePost } =
+  useContext(PostsContext);
 
   const { requestData } = useRequestData();
   const { errorToast, Toast } = useToast();
 
-  const onSubmitLike = async (event) => {
+  const handleSubmitLike = async (event) => {
     event.preventDefault();
 
     const response = await requestData(
@@ -32,7 +33,7 @@ export function CardPost({
       : errorToast(getMessageErrorToastLikeDislike(response.data));
   };
 
-  const onSubmitDislike = async (event) => {
+  const handleSubmitDislike = async (event) => {
     event.preventDefault();
 
     const response = await requestData(
@@ -46,6 +47,16 @@ export function CardPost({
       ? setNewLikeOrDislikePost({ like: false })
       : errorToast(getMessageErrorToastLikeDislike(response.data));
   };
+
+  const like = likesDislikesPosts.find(
+      (likeDislike) =>
+        likeDislike.postId === post.id && likeDislike.like === true
+    )
+
+  const dislike = likesDislikesPosts.find(
+      (likeDislike) =>
+        likeDislike.postId === post.id && likeDislike.like === false
+  )
 
   return (
     <>
@@ -62,11 +73,8 @@ export function CardPost({
         <p>{post.content}</p>
         <div className="flex gap-3">
           <div className="infos">
-            <button onClick={onSubmitLike}>
-              {likesDislikesPosts.find(
-                (likeDislike) =>
-                  likeDislike.postId === post.id && likeDislike.like === true,
-              ) ? (
+            <button onClick={handleSubmitLike}>
+              { like !== undefined ? (
                 <svg
                   width="15"
                   height="17"
@@ -97,11 +105,8 @@ export function CardPost({
             </button>
 
             <p className="text-xs font-bold text-dark-gray">{post.likes}</p>
-            <button onClick={onSubmitDislike}>
-              {likesDislikesPosts.find(
-                (likeDislike) =>
-                  likeDislike.postId === post.id && likeDislike.like === false,
-              ) ? (
+            <button onClick={handleSubmitDislike}>
+              {dislike !== undefined ? (
                 <svg
                   width="15"
                   height="17"

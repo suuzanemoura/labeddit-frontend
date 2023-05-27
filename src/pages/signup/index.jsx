@@ -3,23 +3,24 @@ import { Header } from "../../components/Header";
 import { useToast } from "../../hooks/useToast";
 import Cookies from "universal-cookie";
 import { useRequestData } from "../../hooks/useRequestData";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "../../hooks/useForm";
 import { AiOutlineEye } from "react-icons/ai";
 import { AiOutlineEyeInvisible } from "react-icons/ai";
 import loading from "../../assets/loading.svg";
 import { getMessageErrorToastSignup } from "../../utils/ReturnMessageToast";
 import { goToPosts } from "../../routes/coordinator";
+import { UserContext } from "../../contexts/UserContext";
 
 export default function SignupPage() {
   const navigate = useNavigate();
+  const { token, setToken } = useContext(UserContext)
   const { isLoading, requestData } = useRequestData();
   const { errorToast, Toast } = useToast();
 
   const cookies = new Cookies();
 
   useEffect(() => {
-    const token = cookies.get("labedditUserToken");
 
     if (token) {
       goToPosts(navigate);
@@ -37,7 +38,7 @@ export default function SignupPage() {
     SetShowPassword(type);
   };
 
-  const onSubmit = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     const response = await requestData(
@@ -50,6 +51,7 @@ export default function SignupPage() {
     response.data.token
       ? (clearInputs(),
         cookies.set("labedditUserToken", response.data.token, { path: "/" }),
+        setToken(response.data.token),
         goToPosts(navigate))
       : errorToast(getMessageErrorToastSignup(response.data));
   };
@@ -65,7 +67,7 @@ export default function SignupPage() {
         <div className="flex items-center flex-col w-full">
           <form
             className="form"
-            onSubmit={onSubmit}
+            onSubmit={handleSubmit}
           >
             <input
               id="username"

@@ -4,10 +4,10 @@ import { Router } from "./routes/Router";
 
 export default function App() {
   return (
-    <PostsContextProvider>
-      <UserContextProvider>
+    <UserContextProvider>
+      <PostsContextProvider>
         <Router />
-      </UserContextProvider>
-    </PostsContextProvider>
+      </PostsContextProvider >
+    </UserContextProvider>
   )
 }
