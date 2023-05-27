@@ -8,7 +8,7 @@ O front-end é uma aplicação React.Js, criada usando Vite, onde o usuário pod
 
 ## Link de Acesso
 
-- Deploy no Vercel: [Clique aqui!](https://labeddit-frontend-suuzanemoura.vercel.com)
+- Deploy no Vercel: [Clique aqui!](https://labeddit-frontend-suuzanemoura.vercel.app)
 - Labeddit-Backend: [Clique aqui!](https://github.com/suuzanemoura/labeddit-backend)
 
 ## Sobre o Projeto
