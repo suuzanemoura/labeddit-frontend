@@ -66,6 +66,9 @@ export const getMessageErrorToastLikeDislike = (message) => {
     case "Não é possível interagir com seu próprio post.":
       return "Não é possível interagir com seu próprio post.";
 
+    case "Não é possível interagir com seu próprio comentário.":
+      return "Não é possível interagir com seu próprio comentário."
+
     case "Token inválido.":
       return "Erro inesperado. Verifique se está logado(a) corretamente e tente novamente.";
 

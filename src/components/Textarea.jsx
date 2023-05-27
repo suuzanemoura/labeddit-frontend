@@ -1,24 +1,27 @@
+import { useContext } from "react";
 import loading from "../assets/loading.svg";
 import { useRequestData } from "../hooks/useRequestData";
 import { useTextarea } from "../hooks/useTextarea";
 import { useToast } from "../hooks/useToast";
 import { getMessageErrorToastCreatePostOrComment } from "../utils/ReturnMessageToast";
+import { UserContext } from "../contexts/UserContext";
 
 export function Textarea({
-  headers,
   path,
   placeholder,
   button,
   setNewContent,
 }) {
+
+  const { headers } = useContext(UserContext);
   const { isLoading, requestData } = useRequestData();
   const { successToast, errorToast, Toast } = useToast();
-  const [textareaForm, onChangeTextarea, clearInputs] = useTextarea("");
+  const [ textareaForm, onChangeTextarea, clearInputs ] = useTextarea("");
 
-  const onSubmit = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const response = await requestData(path, "POST", textareaForm, headers);
+    const response = await requestData(path, "POST", headers, textareaForm);
 
     response.data.message
       ? (clearInputs(),
@@ -26,12 +29,12 @@ export function Textarea({
         setNewContent(textareaForm))
       : errorToast(getMessageErrorToastCreatePostOrComment(response.data));
   };
-
+  
   return (
     <>
       <form
         className="form gap-4"
-        onSubmit={onSubmit}
+        onSubmit={handleSubmit}
       >
         <textarea
           className="textarea"
