@@ -1,5 +1,7 @@
 # Labeddit - Frontend
 
+![Preview](./src/assets/labeddit_preview.PNG)
+
 ## Introdução
 
 Labeddit é uma rede social fictícia, criada para o projeto FullStack final do bootcamp FullStack Web da Labenu, dividido em 2 repositórios (labeddit-backend e labeddit-frontend).
