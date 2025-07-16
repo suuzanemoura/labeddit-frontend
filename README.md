@@ -49,7 +49,7 @@ $ npm run dev
 - **Cookies**
 - **TailwindCSS**
 
-### Funcionalidades
+## Funcionalidades
 
 - **Rotas públicas:**
   - Cadastro de usuário;
@@ -81,7 +81,7 @@ $ npm run dev
 - Boas práticas de componentização e gerenciamento de estado com Context API.
 - Feedbacks visuais com notificações (Toastify).
 
-### Melhorias em Potencial
+## Melhorias em Potencial
 - Possibilidade de excluir um post;
 - Possibilidade de excluir um comentário;
 - Visualizar página com informações do usuário;
@@ -90,7 +90,7 @@ $ npm run dev
 - Editar um comentário;
 - Editar informações do usuário (username, email e senha).
 
-### Status do projeto
+## Status do projeto
 
 - ✅ Projeto concluído – aberto a melhorias futuras conforme disponibilidade.
 
