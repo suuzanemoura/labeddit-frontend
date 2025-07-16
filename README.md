@@ -4,14 +4,15 @@
 
 ## Introdução
 
-Labeddit é uma rede social fictícia, criada para o projeto FullStack final do bootcamp FullStack Web da Labenu, dividido em 2 repositórios (labeddit-backend e labeddit-frontend).
+Labeddit é uma rede social fictícia criada como projeto final do bootcamp **Web FullStack** da **Labenu**. O projeto é dividido em dois repositórios: **labeddit-backend** e **labeddit-frontend**.
 
-O front-end é uma aplicação React.Js, criada usando Vite, onde o usuário poderá realizar cadastro, login, visualização de uma lista de posts, visualizar um post específico com uma lista de comentários, interagir com os posts e comentários assim como criar seus próprios posts e comentários. Rotas protegidas com JWT salvos em cookies. Inspirado na rede social Reddit.
+Este repositório contém o **frontend**, desenvolvido com **React.js** e **Vite**. Nele, os usuários podem se cadastrar, fazer login, visualizar uma lista de posts, interagir com posts e comentários e criar seus próprios conteúdos. A autenticação é feita com **JWT** armazenado em cookies. Inspirado na rede social **Reddit**.
+
 
 ## Link de Acesso
 
-- Deploy no Vercel: [Clique aqui!](https://labeddit-frontend-suuzanemoura.vercel.app)
-- Labeddit-Backend: [Clique aqui!](https://github.com/suuzanemoura/labeddit-backend)
+- **Deploy no Vercel:** [Acessar aplicação](https://labeddit-frontend-suuzanemoura.vercel.app)
+- **Repositório Backend:** [Ver Backend](https://github.com/suuzanemoura/labeddit-backend)
 
 ## Sobre o Projeto
 
@@ -21,7 +22,7 @@ O front-end é uma aplicação React.Js, criada usando Vite, onde o usuário pod
 # Instale todas as dependências
 $ npm install
 
-# Execute o projeto
+# Execute o projeto em modo de desenvolvimento
 $ npm run dev
 
 # A aplicação será iniciada na porta 5173
@@ -29,72 +30,71 @@ $ npm run dev
 
 ### Bibliotecas Utilizadas
 
-```
-react-router-dom
-axios
-react-icons
-date-fns
-jose
-react-toastify
-cookies
-universal-cookie
-tailwindcss
-postcss
-autoprefixer
-```
+
+- `react-router-dom` → Gerenciamento de rotas;
+- `axios` → Requisições HTTP;
+- `react-icons` → Ícones;
+- `date-fns` → Manipulação de datas;
+- `jose` → Decodificação de JWT;
+- `react-toastify` → Notificações;
+- `universal-cookie` → Gerenciamento de cookies;
+- `tailwindcss, postcss, autoprefixer` → Estilização;
 
 ### Tecnologias
 
-- ReactJS
-- React Hooks
-- React Context
-- Axios
-- Autenticação e autorização (JWT)
-- Cookies
-- TailwindCSS
+- **React.js**
+- **React Hooks**
+- **Context API**
+- **Autenticação e autorização (JWT)**
+- **Cookies**
+- **TailwindCSS**
 
 ### Funcionalidades
 
 - **Rotas públicas:**
-  - É possível realizar cadastro.
-  - É possível realizar login.
-  - É possível visualizar página de Not Found em uma rota não existente.
+  - Cadastro de usuário;
+  - Login de usuário;
+  - Página 404 para rotas inexistentes;
 - **Rotas protegidas por autenticação:**
-  - Visualização de uma lista de posts.
-    - Com data de quando foram criados.
-    - Com usernames de seus criadores.
-    - Com número de likes.
-    - Com número de comentários.
-    - Escolher visualizar em ordem de mais recentes.
-    - Escolher visualizar em ordem de mais populares (baseado no número de likes).
-  - É possível criar um novo post.
-  - É possível dar like ou dislike em qualquer post.
-  - Não é possível dar like ou dislike em seu próprio post.
-  - Visualização de um post específico com sua lista de comentários (se houver).
-    - Comentários com data de quando foram criados.
-    - Comentários com usernames de seus criadores.
-    - Comentários com número de likes.
-  - É possível criar um novo comentário.
-  - É possível dar like ou dislike em um comentário.
-  - Não é possível dar like ou dislike no seu próprio comentário.
-  - É possível fazer logout (sair) da rede social.
+  - Visualizar lista de posts:
+    - Exibe data de criação;
+    - Exibe username do autor;
+    - Número de likes e comentários;
+    - Ordenar por mais recentes ou mais populares (likes);
+  - Criar novo post;
+  - Curtir ou descurtir posts de outros usuários;
+  - Visualizar post específico com comentários:
+    - Comentários com data de criação, username do autor e likes;
+  - Criar novo comentário;
+  - Curtir ou descurtir comentários de outros usuários;
+  - Logout (sair da rede social);
 
-### Futuras melhorias
+  **Observação:** Não é possível curtir ou descurtir seus próprios posts ou comentários.
 
-- Ser possível excluir um post.
-- Ser possível excluir um comentário.
-- Visulizar página com informações do usuário.
-- Ser possível excluir sua conta.
-- Ser possível editar um post.
-- Ser possível editar um comentário.
-- Ser possível editar informações de usuário (username, email e senha).
+## Destaques do Projeto
+
+- Estrutura completa de autenticação com JWT e cookies.
+- Integração total com API RESTful (backend próprio).
+- Interface responsiva com TailwindCSS.
+- Ordenação dinâmica de posts (mais recentes e mais populares).
+- Separação entre rotas públicas e privadas.
+- Boas práticas de componentização e gerenciamento de estado com Context API.
+- Feedbacks visuais com notificações (Toastify).
+
+### Melhorias em Potencial
+- Possibilidade de excluir um post;
+- Possibilidade de excluir um comentário;
+- Visualizar página com informações do usuário;
+- Excluir sua conta;
+- Editar um post;
+- Editar um comentário;
+- Editar informações do usuário (username, email e senha).
 
 ### Status do projeto
 
-- Concluído ⏳
+- ✅ Projeto concluído – aberto a melhorias futuras conforme disponibilidade.
 
-## Contato
-
-E-mail: suuzanemoura@gmail.com
-
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/suuzanemoura/)
+## <img alt="Coração Roxo" height="15" src="https://github.com/suuzanemoura/suuzanemoura/assets/104701271/ce158244-38f2-4162-b0a4-24b1cfa66ef8"> **Contato**  
+[![Email](https://img.shields.io/badge/-Gmail-EBE2F1?style=for-the-badge&logo=gmail&logoColor=460C68)](mailto:suuzanemoura@gmail.com)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-EBE2F1?style=for-the-badge&logo=linkedin&logoColor=460C68)](https://www.linkedin.com/in/suuzanemoura)
+[![Behance](https://img.shields.io/badge/-Behance-EBE2F1?style=for-the-badge&logo=behance&logoColor=460C68)](https://www.behance.net/suzanemoura)
