@@ -19,6 +19,12 @@ Este repositório contém o **frontend**, desenvolvido com **React.js** e **Vite
 ### Instalação
 
 ```bash
+# Clone o repositório
+$ git clone https://github.com/suuzanemoura/labeddit-frontend.git
+
+# Acesse o diretório do projeto
+$ cd labeddit-frontend
+
 # Instale todas as dependências
 $ npm install
 
